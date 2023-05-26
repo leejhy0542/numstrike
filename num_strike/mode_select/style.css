@@ -1,0 +1,9 @@
+.nick {
+    width:fit-content;
+    margin:auto;
+}
+.button {
+    width:100px;
+    margin:auto;
+    display:block;
+}
