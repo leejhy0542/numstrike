@@ -1,5 +1,10 @@
 const gameContainer = document.getElementById('game-container');
 
+let centiseconds = 0;
+let seconds = 0;
+let minutes = 0;
+let intervalId = null;
+
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -24,38 +29,81 @@ function createBlocks() {
 let currentNumber = 1;
 function handleClick(num, block) {
   if (num === currentNumber) {
-    block.style.backgroundColor = 'lightgreen';
+
     currentNumber += 1;
 
     if (currentNumber > 25) {
-      alert("게임을 완료했습니다!");
+      let finish_time = document.getElementById('timer').textContent;
+      alert("게임을 완료했습니다!" + finish_time);
       location.reload();
     }
-  } else {
-    block.style.backgroundColor = 'red';
+    block.style.opacity = '0';
   }
 }
 
 createBlocks();
 
-let seconds = 0;
-let minutes = 0;
+// // Update the timer every 10 milliseconds
+// setInterval(function() {
+//     centiseconds++;
 
-// Update the timer every second
-setInterval(function() {
-    seconds++;
+//     if (centiseconds >= 100) {
+//         seconds++;
+//         centiseconds = centiseconds % 100;
+//     }
+
+//     if (seconds >= 60) {
+//         minutes++;
+//         seconds = seconds % 60;
+//     }
   
-  	if (seconds >= 60) {
-        minutes++;
-        seconds = seconds % 60;
+//   	// Format time as MM:SS:CC
+//   	let formattedTime = 
+//       	(minutes < 10 ? "0" + minutes : minutes) + ":" +
+//       	(seconds < 10 ? "0" + seconds : seconds) + ":" +
+//       	(centiseconds < 10 ? "0" + centiseconds : 
+//            	centiseconds);
+  
+//   	document.getElementById('timer').textContent = formattedTime;
+
+// },10); // Interval of ten millisecond.
+
+// let centiseconds = 0;
+// let seconds = 0;
+// let minutes = 0;
+
+
+function startTimer() {
+    if (intervalId) { // If timer is already running, do nothing
+        return;
     }
-  
-  	// Format time as MM:SS
-  	let formattedTime = 
-      	(minutes < 10 ? "0" + minutes : minutes) + ":" +
-      	(seconds < 10 ? "0" + seconds : seconds);
-  
-  	document.getElementById('timer').textContent = formattedTime;
 
-},1000); //1000ms or one second interval.
+    intervalId = setInterval(function() {
+        centiseconds++;
 
+        if (centiseconds >= 100) {
+            seconds++;
+            centiseconds %= 100;
+        }
+
+        if (seconds >= 60) {
+            minutes++;
+            seconds %= 60;
+        }
+      
+      	// Format time as MM:SS:CC
+      	let formattedTime = 
+          	(minutes < 10 ? "0" + minutes : minutes) + ":" +
+          	(seconds < 10 ? "0" + seconds : seconds) + ":" +
+          	(centiseconds < 10 ? "0" + centiseconds : 
+               	centiseconds);
+      
+      	document.getElementById('timer').textContent = formattedTime;
+
+    },10); // Interval of ten millisecond.
+}
+
+// Assuming blocks have a class name 'block'
+const blocks = document.querySelectorAll('.block');
+
+blocks.forEach(block => block.addEventListener('click', startTimer));

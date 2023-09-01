@@ -5,7 +5,7 @@
     height: 50vh; /* Full height of the viewport */
   }
   
-  #game-container {
+#game-container {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 1vw; 
@@ -13,23 +13,23 @@
       height: 45vh; 
   }
   
-  .block {
-     aspect-ratio: 1 / 1;
+.block {
   
-     border: solid thin #000;
-     display:flex;            
-     justify-content:center;  
-     align-items:center;
-  
-     font-size :3vw;
-  
-     transition : transform .2s; 
-     cursor:pointer;
+    border: solid thin #000;
+    display:flex;            
+    justify-content:center;  
+    align-items:center;
+    border-radius: 10px;
+    font-size :3vw;
+    background-color : rgb(206, 85, 206);
+    transition : transform .2s; 
+    cursor:pointer;
+    aspect-ratio: 1 / 1;
   }
-  .block:hover{
+.block:hover{
       transform :scale(1.05);
   }
-  #timer {
+#timer {
     position: absolute;
     top: 10px;
     right: 10px;
